@@ -57,6 +57,7 @@
 #include "user-mmap.h"
 #include "tcg/perf.h"
 #include "exec/page-vary.h"
+#include "../symqemu/include/symqemu_runtime.h"
 
 #ifdef CONFIG_SEMIHOSTING
 #include "semihosting/semihost.h"
@@ -1021,6 +1022,8 @@ int main(int argc, char **argv, char **envp)
        generating the prologue until now so that the prologue can take
        the real value of GUEST_BASE into account.  */
     tcg_prologue_init();
+
+    symqemu_init();
 
     init_main_thread(cpu, info);
 

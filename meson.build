@@ -3780,6 +3780,7 @@ subdir('authz')
 subdir('crypto')
 subdir('ui')
 subdir('gdbstub')
+subdir('symqemu')
 if have_system
   subdir('hw')
 else

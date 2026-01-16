@@ -66,6 +66,7 @@
 #include <linux/in6.h>
 #include <linux/errqueue.h>
 #include <linux/random.h>
+#include "../symqemu/include/symqemu_runtime.h"
 #ifdef CONFIG_TIMERFD
 #include <sys/timerfd.h>
 #endif
@@ -9525,6 +9526,9 @@ static abi_long do_syscall1(CPUArchState *cpu_env, int num, abi_long arg1,
             if (ret >= 0 &&
                 fd_trans_host_to_target_data(arg1)) {
                 ret = fd_trans_host_to_target_data(arg1)(p, ret);
+            }
+            if (ret > 0) {
+                symqemu_taint_read_buffer(arg1, arg2, arg3, ret);
             }
             unlock_user(p, arg2, ret);
         }
